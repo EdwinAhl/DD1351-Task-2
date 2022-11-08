@@ -5,6 +5,7 @@ read(Prems), read(Goal), read(Proof),
 seen,
 valid_proof(Prems, Goal, Proof).
 
+% big chungus
 
 % Check impel ------------------------------
 % 4. Check the first slot of the imp is valid, e.g if LineNumber is correct and the result on that place is correct.
