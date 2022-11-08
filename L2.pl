@@ -1,14 +1,13 @@
-%swipl -g "['L2'], verify('input.txt')" -g halt
-
 verify(InputFileName) :- see(InputFileName),
 read(Prems), read(Goal), read(Proof),
 seen,
 valid_proof(Prems, Goal, Proof).
 
-% big chungus
 
-% Check impel ------------------------------
-% 4. Check the first slot of the imp is valid, e.g if LineNumber is correct and the result on that place is correct.
+
+
+% Check impel --------------------------------
+% 4. Check the the first slot of the imp is valid, e.g if LineNumber is correct and the result on that place is correct.
 impelFirstSlot([[LineNumber, X, _]|_], LineNumber, X).
 
 % 3. Iterate
@@ -19,7 +18,28 @@ impelSecondSlot(AllLines, [[B, imp(X, Result), _]|Rest], Result, A, B) :- impelF
 
 % 1. Iterate
 impelSecondSlot(AllLines, [_|Rest], Result, A, B) :- impelSecondSlot(AllLines, Rest, Result, A, B).
+
+% Check premise -------------------------------
+valid_premise([Premise|OtherPremises], Premise).
+valid_premise([_|OtherPremises], Premise) :- valid_premise(OtherPremises, Premise).
+% Check negel -------------------------------
+
+% matcher
+negelSecondSlot([[SecondNum, neg(X), _]|_], SecondNum, X).
+
+% iterator
+% AllLines, Second slot number, what to negate
+negelSecondSlot([_|Rest], SecondNum, X) :- negelSecondSlot(Rest, SecondNum, X).
+
+% matcher
+negelFirstSlot(AllLines, [[FirstNum, X, _]|_], FirstNum, SecondNum) :- negelSecondSlot(AllLines, SecondNum, X).
+
+% iterator
+% AllLines, AllLines, First slot number, second slot number
+negelFirstSlot(AllLines, [_|Rest], FirstNum, SecondNum) :- negelFirstSlot(AllLines, Rest, FirstNum, SecondNum).
+
 % ---------------------------------------------
+
 
 
 % 0: List of premises
@@ -29,14 +49,13 @@ impelSecondSlot(AllLines, [_|Rest], Result, A, B) :- impelSecondSlot(AllLines, R
 % 3: The Line Number (left)
 % 4: The result (middle)
 % 5: How the result was made (right)
-valid_line([], _, _, _, _, _).
 
 % Check validity of premise ------------------------------
-valid_line([Premise|OtherPremises], _, _, _, Premise, premise).
-valid_line([Prems|OtherPremises], _, _, _, Premise, premise) :- valid_line(OtherPremises, _, _, _, Premise, premise).
-
+valid_line(Prems, _, _, _, Premise, premise) :- valid_premise(Prems, Premise).
 % Check validity of impel ------------------------------
 valid_line(_, _, AllLines, _, Result, impel(A, B)) :- impelSecondSlot(AllLines, AllLines, Result, A, B).
+% Check validity of negel ------------------------------
+valid_line(_, _, AllLines, _, cont, negel(A, B)) :- negelFirstSlot(AllLines, AllLines, A, B).
 % ---------------------------------------------
 
 readLine(_, _, _, []).
