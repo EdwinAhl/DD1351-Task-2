@@ -1,3 +1,5 @@
+["rules/premise"].
+
 % START ------------------------------------------------------
 
 verify(InputFileName) :- see(InputFileName),
@@ -30,8 +32,7 @@ valid_proof(Prems, Goal, Line) :- readLine(Prems, Goal, Line, Line).
 % 4: The result (middle)
 % 5: How the result was made (right)
 
-% Check validity of premise ------------------------------
-valid_line(Prems, _, _, _, Premise, premise) :- valid_premise(Prems, Premise).
+
 
 % Check validity of impel ------------------------------
 valid_line(_, _, AllLines, _, Result, impel(A, B)) :- impelSecondSlot(AllLines, AllLines, Result, A, B).
@@ -61,12 +62,7 @@ impelSecondSlot(AllLines, [_|Rest], Result, A, B) :- impelSecondSlot(AllLines, R
 
 
 
-% CHECK PREMISE ------------------------------------------------------------------------------------- 
 
-valid_premise([Premise|OtherPremises], Premise).
-valid_premise([_|OtherPremises], Premise) :- valid_premise(OtherPremises, Premise).
-
-%----------------------------------------------------------------------------------------------------
 
 
 
