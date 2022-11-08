@@ -28,17 +28,22 @@ valid_proof(Prems, Goal, Line) :- readLine(Prems, Goal, Line, Line).
 % 1: The Goal
 % 2: All Lines
 
-% 3: The Line Number (left)
-% 4: The result (middle)
-% 5: How the result was made (right)
+% 3: (A) The Line Number (left)
+% 4: (B) The result (middle)
+% 5: (C) How the result was made (right)
 
-% Check validity of premise ------------------------------
+% Check validity of premise 
 valid_line(Prems, _, _, _, Premise, premise) :- valid_premise(Prems, Premise).
 
-% Check validity of impel ------------------------------
-valid_line(_, _, AllLines, _, Result, impel(A, B)) :- impelSecondSlot(AllLines, AllLines, Result, A, B).
+% Check validity of impel 
+valid_line(_, _, AllLines, _, Result, impel(FirstLine, SecondLine)) :- impelSecondSlot(AllLines, AllLines, Result, FirstLine, SecondLine).
 
-% Check validity of negel ------------------------------
-valid_line(_, _, AllLines, _, cont, negel(A, B)) :- negelFirstSlot(AllLines, AllLines, A, B).
+% Check validity of negel 
+valid_line(_, _, AllLines, _, cont, negel(FirstLine, SecondLine)) :- negelFirstSlot(AllLines, AllLines, FirstLine, SecondLine).
+
+% Check validity of copy 
+valid_line(_, _, AllLines, _, Result, copy(Line)) :- copy(AllLines, Result, Line).
+
+
 
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
