@@ -59,7 +59,13 @@ valid_line(_, _, AllLines, _, cont, negel(FirstLine, SecondLine)) :- negelFirstS
 valid_line(_, _, AllLines, _, Result, copy(LineNumber)) :- valid_copy(AllLines, Result, LineNumber).
 
 % andint
-valid_line(_,_, AllLines, _, Result, andint(FirstLine, SecondLine)) :- valid_andint(AllLines, Result, FirstLine, SecondLine).
+valid_line(_, _, AllLines, _, Result, andint(FirstLine, SecondLine)) :- valid_andint(AllLines, Result, FirstLine, SecondLine).
+
+% andel1
+valid_line(_, _, AllLines, _, Result, andel1(LineNumber)) :- valid_andel1(AllLines, Result, LineNumber).
+
+% andel2
+valid_line(_, _, AllLines, _, Result, andel2(LineNumber)) :- valid_andel2(AllLines, Result, LineNumber).
 
 
 
