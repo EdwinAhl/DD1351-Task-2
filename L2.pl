@@ -22,7 +22,18 @@ valid_proof(Prems, Goal, Proof).
 % 5: (C) How the result was made (right)
 
 readLine(_, _, _, []).
-readLine(Prems, Goal, AllLines, [[A,B,C]|Rest]) :- write(A), write(" "), write(B), write(" "), write(C), write("\n"),
+
+
+writeLine(A, B, C) :- write(A), write(" "), write(B), write(" "), write(C), write("\n").
+
+% When a sublist is reached then it should always be an assumption
+readLine(Prems, Goal, AllLines,
+    [[[A, B, assumption]|Rest]|OuterRest]) :-
+        writeLine(A, B, assumption),
+        readLine(Prems, Goal, AllLines, Rest), 
+        readLine(Prems, Goal, AllLines, OuterRest).
+
+readLine(Prems, Goal, AllLines, [[A,B,C]|Rest]) :- writeLine(A, B, C),
     readLine(Prems, Goal, AllLines, Rest), valid_line(Prems, Goal, AllLines, A, B, C).
 
 valid_proof(Prems, Goal, Line) :- readLine(Prems, Goal, Line, Line).

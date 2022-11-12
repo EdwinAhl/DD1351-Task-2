@@ -1,9 +1,10 @@
-[imp(p, q), p].
-
-q.
-
+[q].
+imp(p,q).
 [
-  [1, imp(p,q), premise],
-  [2, p,        premise],
-  [3, q,        impel(2,1)]
+    [1, q,        premise],
+    [
+      [2, p,      assumption],
+      [3, q,      copy(1)]
+    ],
+    [4, imp(p,q), impint(2,3)]
 ].
