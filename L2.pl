@@ -29,24 +29,31 @@ readLine(_, _, _, _, []).
 % When a sublist is reached then it should always be an assumption
 readLine(Prems, Goal, AllLines, TraversedLines,
     [[[A, B, assumption]|Rest]|OuterRest]) :-
+        
         % Print
         writeLine(A, B, assumption),
         
         % Append the assumption line to your TraversedLines
         appendEl([A,B,assumption], TraversedLines, InnerTraversed),
+
         % Continue reading from within the assumption
         readLine(Prems, Goal, InnerTraversed, AllLines, Rest),
 
         % Append the whole assumption list to your TraversedLines
         appendEl([[A,B,assumption]|Rest], TraversedLines, OuterTraversed),
+
         % Continue reading lines after the assumption
         readLine(Prems, Goal, AllLines, OuterTraversed, OuterRest).
 
+% NEED COMMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%help%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% AGAGGAW
 readLine(Prems, Goal, AllLines, TraversedLines, [[A,B,C]|Rest]) :- writeLine(A, B, C),
+
     % Add the line to your visited lines
     appendEl([A,B,C], TraversedLines, AllTraversed),
+
     % Read the nex line
     readLine(Prems, Goal, AllLines, AllTraversed, Rest),
+
     % Make sure the line is valid
     valid_line(Prems, Goal, AllLines, TraversedLines, A, B, C).
 
