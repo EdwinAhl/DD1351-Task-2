@@ -1,9 +1,9 @@
 % CHECK PREMISE ------------------------------------------------------------------------------------- 
 
-% base case
+% Base case
 valid_premise([Premise|OtherPremises], Premise).
 
-% iterator
+% Iterator
 valid_premise([_|OtherPremises], Premise) :- valid_premise(OtherPremises, Premise).
 
 %----------------------------------------------------------------------------------------------------
