@@ -5,6 +5,6 @@ q.
 [
   [1, imp(p,q), premise],
   [2, p,        premise],
-  [3, q,        impel(2,1)]
-  %[4, p, copy(2)]
+  [3, q,        impel(2,1)],
+  [4, and(q,p), andint(3,2)]
 ].
