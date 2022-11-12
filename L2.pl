@@ -67,13 +67,19 @@ valid_line(Prems, _, _, _, _, Premise, premise) :- valid_premise(Prems, Premise)
 valid_line(_, _, AllLines, _, _, Result, impel(FirstLine, SecondLine)) :- impelSecondSlot(AllLines, AllLines, Result, FirstLine, SecondLine).
 
 % negel 
-valid_line(_, _, AllLines, TraversedLines, _, cont, negel(FirstLine, SecondLine)) :- negelFirstSlot(TraversedLines, TraversedLines, FirstLine, SecondLine).
+valid_line(_, _, _, TraversedLines, _, cont, negel(FirstLine, SecondLine)) :- negelFirstSlot(TraversedLines, TraversedLines, FirstLine, SecondLine).
 
 % copy 
 valid_line(_, _, AllLines, _, _, Result, copy(LineNumber)) :- valid_copy(AllLines, Result, LineNumber).
 
 % andint
-valid_line(_,_, AllLines, _, _, Result, andint(FirstLine, SecondLine)) :- valid_andint(AllLines, Result, FirstLine, SecondLine).
+valid_line(_, _, AllLines, _, _, Result, andint(FirstLine, SecondLine)) :- valid_andint(AllLines, Result, FirstLine, SecondLine).
+
+% andel1
+valid_line(_, _, AllLines, _, _, Result, andel1(LineNumber)) :- valid_andel1(AllLines, Result, LineNumber).
+
+% andel2
+valid_line(_, _, AllLines, _, _, Result, andel2(LineNumber)) :- valid_andel2(AllLines, Result, LineNumber).
 
 
 
