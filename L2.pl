@@ -101,6 +101,9 @@ valid_line(_, _, AllLines, _, _, Result, andel2(LineNumber)) :- valid_andel2(All
 % orint1
 valid_line(_, _, AllLines, _, _, Result, orint1(LineNumber)) :- valid_orint1(AllLines, Result, LineNumber).
 
+% negnegel
+valid_line(_, _, AllLines, _, _, Result, negnegel(LineNumber)) :- valid_negnegel(AllLines, Result, LineNumber).
+
 
 
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
