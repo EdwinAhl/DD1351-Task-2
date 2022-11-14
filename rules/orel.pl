@@ -23,6 +23,6 @@ valid_orel(TraversedLines, Result, X, Y, U, V, W) :-
     member([V, B, assumption], AssumptionSubsection2),
 
     % Check result in section 2
-    member([W, Result, _], AssumptionSubsection2),
+    member([W, Result, _], AssumptionSubsection2).
 
 %-------------------------------------------------------------------------------------------------
