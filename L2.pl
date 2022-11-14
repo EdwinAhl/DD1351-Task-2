@@ -35,7 +35,6 @@ readLine(Prems, Goal, AllLines, TraversedLines,
         
         % Append the assumption line to your TraversedLines
         appendEl([A,B,assumption], TraversedLines, InnerTraversed),
-        write(InnerTraversed),
 
         % Continue reading from within the assumption
         readLine(Prems, Goal, AllLines, InnerTraversed, Rest),
