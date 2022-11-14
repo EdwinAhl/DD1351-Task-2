@@ -114,5 +114,7 @@ valid_line(_, _, _, TraversedLines, _, Result, pbc(From,To)) :- valid_negint(Tra
 % lem
 valid_line(_, _, _, _, _, or(X, neg(X)), lem).
 
+% orel
+valid_line(_, _, _, TraversedLines, _, Result, orel(X, Y, U, V, W)) :- valid_orel(TraversedLines, Result, X, Y, U, V, W).
 
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
