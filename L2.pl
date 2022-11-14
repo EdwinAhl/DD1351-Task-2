@@ -107,4 +107,7 @@ valid_line(_, _, AllLines, _, _, Result, negnegel(LineNumber)) :- valid_negnegel
 % negint
 valid_line(_, _, _, TraversedLines, _, neg(Result), negint(From,To)) :- valid_negint(TraversedLines, Result, From, To).
 
+% orel
+valid_line(_, _, _, TraversedLines, _, Result, orel(X, Y, U, V, W)) :- valid_orel(TraversedLines, Result, X, Y, U, V, W).
+
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
