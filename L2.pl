@@ -45,7 +45,7 @@ readLine(Prems, Goal, AllLines, TraversedLines,
         % Continue reading lines after the assumption
         readLine(Prems, Goal, AllLines, OuterTraversed, OuterRest).
 
-% NEED COMMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%help%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% AGAGGAW
+% Base case for reading new lines, gets a basic line (not assumption) and does all checks on it.
 readLine(Prems, Goal, AllLines, TraversedLines, [[A,B,C]|Rest]) :- writeLine(A, B, C),
 
     % Add the line to your visited lines
@@ -104,6 +104,7 @@ valid_line(_, _, AllLines, _, _, Result, orint1(LineNumber)) :- valid_orint1(All
 % negnegel
 valid_line(_, _, AllLines, _, _, Result, negnegel(LineNumber)) :- valid_negnegel(AllLines, Result, LineNumber).
 
-
+% negint
+valid_line(_, _, _, TraversedLines, _, neg(Result), negint(From,To)) :- valid_negint(TraversedLines, Result, From, To).
 
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
