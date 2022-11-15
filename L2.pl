@@ -98,7 +98,7 @@ valid_line(_, _, AllLines, _, _, Result, andel2(LineNumber)) :- valid_andel2(All
 valid_line(_, _, AllLines, _, _, Result, orint1(LineNumber)) :- valid_orint1(AllLines, Result, LineNumber).
 
 % orint2
-% WIP
+valid_line(_, _, AllLines, _, _, Result, orint2(LineNumber)) :- valid_orint2(AllLines, Result, LineNumber).
 
 % orel
 valid_line(_, _, _, TraversedLines, _, Result, orel(X, Y, U, V, W)) :- valid_orel(TraversedLines, Result, X, Y, U, V, W).
