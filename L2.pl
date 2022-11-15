@@ -125,7 +125,7 @@ valid_line(_, _, _, TraversedLines, _, neg(neg(Result)), negnegint(LineNumber)) 
 valid_line(_, _, AllLines, _, _, Result, negnegel(LineNumber)) :- valid_negnegel(AllLines, Result, LineNumber).
 
 % mt
-% WIP
+valid_line(_, _, _, TraversedLines, _, neg(Result), mt(FirstLine, SecondLine)) :- valid_mt(TraversedLines, Result, FirstLine, SecondLine).
 
 % pbc: is just like negint but with neg(Result)
 valid_line(_, _, _, TraversedLines, _, Result, pbc(From,To)) :- valid_negint(TraversedLines, neg(Result), From, To).
