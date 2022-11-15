@@ -86,7 +86,7 @@ valid_line(Prems, _, _, _, _, Premise, premise) :- valid_premise(Prems, Premise)
 valid_line(_, _, AllLines, _, _, Result, copy(LineNumber)) :- valid_copy(AllLines, Result, LineNumber).
 
 % andint
-valid_line(_, _, AllLines, _, _, Result, andint(FirstLine, SecondLine)) :- valid_andint(AllLines, Result, FirstLine, SecondLine).
+valid_line(_, _, _, TraversedLines, _, Result, andint(FirstLine, SecondLine)) :- valid_andint(TraversedLines, Result, FirstLine, SecondLine).
 
 % andel1
 valid_line(_, _, AllLines, _, _, Result, andel1(LineNumber)) :- valid_andel1(AllLines, Result, LineNumber).
@@ -104,7 +104,7 @@ valid_line(_, _, AllLines, _, _, Result, orint2(LineNumber)) :- valid_orint2(All
 valid_line(_, _, _, TraversedLines, _, Result, orel(X, Y, U, V, W)) :- valid_orel(TraversedLines, Result, X, Y, U, V, W).
 
 % impint
-% WIP
+valid_line(_, _, _, TraversedLines, _, imp(Assumption, Result), impint(From, To)) :- valid_impint(TraversedLines, Assumption, Result, From, To).
 
 % impel 
 valid_line(_, _, _, TraversedLines, _, Result, impel(FirstLine, SecondLine)) :- valid_impel(TraversedLines, Result, FirstLine, SecondLine).
