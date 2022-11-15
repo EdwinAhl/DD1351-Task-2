@@ -134,3 +134,6 @@ valid_line(_, _, _, TraversedLines, _, Result, pbc(From,To)) :- valid_negint(Tra
 valid_line(_, _, _, _, _, or(X, neg(X)), lem).
 
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+% goal
+valid_line(_, Goal, AllLines, _, Goal, _) :- last(AllLines, [_, Goal, _]).
