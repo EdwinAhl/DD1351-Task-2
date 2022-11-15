@@ -47,7 +47,7 @@ readLine(Prems, Goal, AllLines, TraversedLines,
         appendEl([[A,B,assumption]|Rest], TraversedLines, OuterTraversed),
 
         % Get the last line within the assumption.
-        last(Rest, [LastLineNumber, _, _]),
+        last([[A,B,assumption]|Rest], [LastLineNumber, _, _]),
 
         % Continue reading lines after the assumption
         readLine(Prems, Goal, AllLines, OuterTraversed, OuterRest, LastLineNumber).
