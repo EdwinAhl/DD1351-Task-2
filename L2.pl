@@ -116,7 +116,7 @@ valid_line(_, _, _, TraversedLines, _, neg(Result), negint(From,To)) :- valid_ne
 valid_line(_, _, _, TraversedLines, _, cont, negel(FirstLine, SecondLine)) :- valid_negel(TraversedLines, FirstLine, SecondLine).
 
 % contel
-valid_line(_, _, _, TraversedLines, _, cont ) :- valid_contel().
+valid_line(_, _, _, TraversedLines, _, _, contel(LineNumber)) :- valid_contel(TraversedLines, LineNumber).
 
 % negnegint
 valid_line(_, _, _, TraversedLines, _, neg(neg(Result)), negnegint(LineNumber)) :- valid_negnegint(TraversedLines, Result, LineNumber).
