@@ -80,11 +80,7 @@ valid_proof(Prems, Goal, Line) :- readLine(Prems, Goal, Line, [], Line).
 % premise 
 valid_line(Prems, _, _, _, _, Premise, premise) :- valid_premise(Prems, Premise).
 
-% impel 
-valid_line(_, _, _, TraversedLines, _, Result, impel(FirstLine, SecondLine)) :- valid_impel(TraversedLines, Result, FirstLine, SecondLine).
-
-% negel 
-valid_line(_, _, _, TraversedLines, _, cont, negel(FirstLine, SecondLine)) :- valid_negel(TraversedLines, FirstLine, SecondLine).
+% assumption, done in ReadLine
 
 % copy 
 valid_line(_, _, AllLines, _, _, Result, copy(LineNumber)) :- valid_copy(AllLines, Result, LineNumber).
@@ -101,23 +97,40 @@ valid_line(_, _, AllLines, _, _, Result, andel2(LineNumber)) :- valid_andel2(All
 % orint1
 valid_line(_, _, AllLines, _, _, Result, orint1(LineNumber)) :- valid_orint1(AllLines, Result, LineNumber).
 
-% negnegel
-valid_line(_, _, AllLines, _, _, Result, negnegel(LineNumber)) :- valid_negnegel(AllLines, Result, LineNumber).
-
-% negint
-valid_line(_, _, _, TraversedLines, _, neg(Result), negint(From,To)) :- valid_negint(TraversedLines, Result, From, To).
-
-% pbc
-% pbc is just like negint but with neg(Result)
-valid_line(_, _, _, TraversedLines, _, Result, pbc(From,To)) :- valid_negint(TraversedLines, neg(Result), From, To).
-
-% lem
-valid_line(_, _, _, _, _, or(X, neg(X)), lem).
+% orint2
+% WIP
 
 % orel
 valid_line(_, _, _, TraversedLines, _, Result, orel(X, Y, U, V, W)) :- valid_orel(TraversedLines, Result, X, Y, U, V, W).
 
+% impint
+% WIP
+
+% impel 
+valid_line(_, _, _, TraversedLines, _, Result, impel(FirstLine, SecondLine)) :- valid_impel(TraversedLines, Result, FirstLine, SecondLine).
+
+% negint
+valid_line(_, _, _, TraversedLines, _, neg(Result), negint(From,To)) :- valid_negint(TraversedLines, Result, From, To).
+
+% negel 
+valid_line(_, _, _, TraversedLines, _, cont, negel(FirstLine, SecondLine)) :- valid_negel(TraversedLines, FirstLine, SecondLine).
+
+% contel
+% WIP
+
+% negnegint
+% WIP
+
+% negnegel
+valid_line(_, _, AllLines, _, _, Result, negnegel(LineNumber)) :- valid_negnegel(AllLines, Result, LineNumber).
+
 % mt
 valid_line(_, _, _, TraversedLines, _, neg(Result), mt(FirstLine, SecondLine)) :- valid_mt(TraversedLines, Result, FirstLine, SecondLine).
+
+% pbc: is just like negint but with neg(Result)
+valid_line(_, _, _, TraversedLines, _, Result, pbc(From,To)) :- valid_negint(TraversedLines, neg(Result), From, To).
+
+% lem
+valid_line(_, _, _, _, _, or(X, neg(X)), lem).
 
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
