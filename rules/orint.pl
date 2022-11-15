@@ -1,0 +1,1 @@
+valid_orint(TraversedLines, Result, LineNumber) :- member([LineNumber, Result, _], TraversedLines).

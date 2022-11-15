@@ -105,10 +105,10 @@ valid_line(_, _, _, TraversedLines, _, Result, andel1(LineNumber)) :- valid_ande
 valid_line(_, _, _, TraversedLines, _, Result, andel2(LineNumber)) :- valid_andel2(TraversedLines, Result, LineNumber).
 
 % orint1
-valid_line(_, _, _, TraversedLines, _, Result, orint1(LineNumber)) :- valid_orint1(TraversedLines, Result, LineNumber).
+valid_line(_, _, _, TraversedLines, _, or(Result, _), orint1(LineNumber)) :- valid_orint(TraversedLines, Result, LineNumber).
 
 % orint2
-valid_line(_, _, _, TraversedLines, _, Result, orint2(LineNumber)) :- valid_orint2(TraversedLines, Result, LineNumber).
+valid_line(_, _, _, TraversedLines, _, or(_, Result), orint2(LineNumber)) :- valid_orint(TraversedLines, Result, LineNumber).
 
 % orel
 valid_line(_, _, _, TraversedLines, _, Result, orel(X, Y, U, V, W)) :- valid_orel(TraversedLines, Result, X, Y, U, V, W).
