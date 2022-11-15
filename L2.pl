@@ -93,22 +93,22 @@ valid_line(Prems, _, _, _, _, Premise, premise) :- valid_premise(Prems, Premise)
 % assumption, done in ReadLine
 
 % copy 
-valid_line(_, _, AllLines, _, _, Result, copy(LineNumber)) :- valid_copy(AllLines, Result, LineNumber).
+valid_line(_, _, _, TraversedLines, _, Result, copy(LineNumber)) :- valid_copy(TraversedLines, Result, LineNumber).
 
 % andint
 valid_line(_, _, _, TraversedLines, _, Result, andint(FirstLine, SecondLine)) :- valid_andint(TraversedLines, Result, FirstLine, SecondLine).
 
 % andel1
-valid_line(_, _, AllLines, _, _, Result, andel1(LineNumber)) :- valid_andel1(AllLines, Result, LineNumber).
+valid_line(_, _, _, TraversedLines, _, Result, andel1(LineNumber)) :- valid_andel1(TraversedLines, Result, LineNumber).
 
 % andel2
-valid_line(_, _, AllLines, _, _, Result, andel2(LineNumber)) :- valid_andel2(AllLines, Result, LineNumber).
+valid_line(_, _, _, TraversedLines, _, Result, andel2(LineNumber)) :- valid_andel2(TraversedLines, Result, LineNumber).
 
 % orint1
-valid_line(_, _, AllLines, _, _, Result, orint1(LineNumber)) :- valid_orint1(AllLines, Result, LineNumber).
+valid_line(_, _, _, TraversedLines, _, Result, orint1(LineNumber)) :- valid_orint1(TraversedLines, Result, LineNumber).
 
 % orint2
-valid_line(_, _, AllLines, _, _, Result, orint2(LineNumber)) :- valid_orint2(AllLines, Result, LineNumber).
+valid_line(_, _, _, TraversedLines, _, Result, orint2(LineNumber)) :- valid_orint2(TraversedLines, Result, LineNumber).
 
 % orel
 valid_line(_, _, _, TraversedLines, _, Result, orel(X, Y, U, V, W)) :- valid_orel(TraversedLines, Result, X, Y, U, V, W).
