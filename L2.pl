@@ -119,7 +119,7 @@ valid_line(_, _, _, TraversedLines, _, cont, negel(FirstLine, SecondLine)) :- va
 % WIP
 
 % negnegint
-% WIP
+valid_line(_, _, _, TraversedLines, _, neg(neg(Result)), negnegint(LineNumber)) :- valid_negnegint(TraversedLines, Result, LineNumber).
 
 % negnegel
 valid_line(_, _, AllLines, _, _, Result, negnegel(LineNumber)) :- valid_negnegel(AllLines, Result, LineNumber).
