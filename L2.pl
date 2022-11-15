@@ -22,7 +22,7 @@ valid_proof(Prems, Goal, Proof).
 % 5: Current Line number
 
 
-writeLine(A, B, C) :- write(A), write(" "), write(B), write(" "), write(C), write("\n").
+writeLine(A, B, C) :- true. % write(A), write(" "), write(B), write(" "), write(C), write("\n").
 
 % return when theres no more lines
 readLine(_, _, _, _, [], _).
@@ -68,7 +68,13 @@ readLine(Prems, Goal, AllLines, TraversedLines, [[A,B,C]|Rest], OldLineNumber) :
     readLine(Prems, Goal, AllLines, AllTraversed, Rest, A).
 
 % start reading all lines, with an empty traversed lines list
-valid_proof(Prems, Goal, Line) :- readLine(Prems, Goal, Line, [], Line, 0).
+valid_proof(Prems, Goal, Line) :- 
+
+    % read the lines and validate them
+    readLine(Prems, Goal, Line, [], Line, 0),
+
+    % Make sure the goal is reached
+    last(Line, [_, Goal, _]).
 
 % -----------------------------------------------------------------------------------------------------------------------------
 
@@ -144,6 +150,3 @@ valid_line(_, _, _, TraversedLines, _, Result, pbc(From,To)) :- valid_negint(Tra
 valid_line(_, _, _, _, _, or(X, neg(X)), lem).
 
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
-
-% goal
-valid_line(_, Goal, AllLines, _, Goal, _) :- last(AllLines, [_, Goal, _]).
