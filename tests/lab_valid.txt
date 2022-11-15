@@ -3,8 +3,8 @@
 and(neg(p),q).
 
 [
-  [1, imp(p,      premise ],
-  [2, and(neg(p),q), lem ],
+  [1, imp(p,q),      premise],
+  [2, and(neg(p),q), lem],
   [
     [3, neg(p), assumption],
     [4, and(neg(p),q), orint1(3)]
