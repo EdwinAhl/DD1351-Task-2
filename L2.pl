@@ -132,7 +132,7 @@ valid_line(_, _, _, TraversedLines, _, _, contel(LineNumber)) :- valid_contel(Tr
 valid_line(_, _, _, TraversedLines, _, neg(neg(Result)), negnegint(LineNumber)) :- valid_negnegint(TraversedLines, Result, LineNumber).
 
 % negnegel
-valid_line(_, _, AllLines, _, _, Result, negnegel(LineNumber)) :- valid_negnegel(AllLines, Result, LineNumber).
+valid_line(_, _, _, TraversedLines, _, Result, negnegel(LineNumber)) :- valid_negnegel(TraversedLines, Result, LineNumber).
 
 % mt
 valid_line(_, _, _, TraversedLines, _, neg(Result), mt(FirstLine, SecondLine)) :- valid_mt(TraversedLines, Result, FirstLine, SecondLine).
