@@ -126,7 +126,7 @@ valid_line(_, _, _, TraversedLines, _, neg(Result), negint(From,To)) :- valid_ne
 valid_line(_, _, _, TraversedLines, _, cont, negel(FirstLine, SecondLine)) :- valid_negel(TraversedLines, FirstLine, SecondLine).
 
 % contel
-% WIP
+valid_line(_, _, _, TraversedLines, _, _, contel(LineNumber)) :- valid_contel(TraversedLines, LineNumber).
 
 % negnegint
 valid_line(_, _, _, TraversedLines, _, neg(neg(Result)), negnegint(LineNumber)) :- valid_negnegint(TraversedLines, Result, LineNumber).
@@ -144,3 +144,6 @@ valid_line(_, _, _, TraversedLines, _, Result, pbc(From,To)) :- valid_negint(Tra
 valid_line(_, _, _, _, _, or(X, neg(X)), lem).
 
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+% goal
+valid_line(_, Goal, AllLines, _, Goal, _) :- last(AllLines, [_, Goal, _]).
