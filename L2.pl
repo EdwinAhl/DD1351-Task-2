@@ -19,34 +19,41 @@ valid_proof(Prems, Goal, Proof).
 % 2: All Lines
 % 3: Traversed lines (including same and higher level assumptions)
 % 4: Current Line
+% 5: Current Line number
 
 
 writeLine(A, B, C) :- write(A), write(" "), write(B), write(" "), write(C), write("\n").
 
 % return when theres no more lines
-readLine(_, _, _, _, []).
+readLine(_, _, _, _, [], _).
 
 % When a sublist is reached then it should always be an assumption
 readLine(Prems, Goal, AllLines, TraversedLines,
-    [[[A, B, assumption]|Rest]|OuterRest]) :-
+    [[[A, B, assumption]|Rest]|OuterRest], OldLineNumber) :-
         
         % Print
         writeLine(A, B, assumption),
         
+        % Checks that all line numbers are valid
+        OldLineNumber is A - 1,
+
         % Append the assumption line to your TraversedLines
         appendEl([A,B,assumption], TraversedLines, InnerTraversed),
 
         % Continue reading from within the assumption
-        readLine(Prems, Goal, AllLines, InnerTraversed, Rest),
+        readLine(Prems, Goal, AllLines, InnerTraversed, Rest, A),
 
         % Append the whole assumption list to your TraversedLines
         appendEl([[A,B,assumption]|Rest], TraversedLines, OuterTraversed),
 
+        % Get the last line within the assumption.
+        last(Rest, [LastLineNumber, _, _]),
+
         % Continue reading lines after the assumption
-        readLine(Prems, Goal, AllLines, OuterTraversed, OuterRest).
+        readLine(Prems, Goal, AllLines, OuterTraversed, OuterRest, LastLineNumber).
 
 % Base case for reading new lines, gets a basic line (not assumption) and does all checks on it.
-readLine(Prems, Goal, AllLines, TraversedLines, [[A,B,C]|Rest]) :- writeLine(A, B, C),
+readLine(Prems, Goal, AllLines, TraversedLines, [[A,B,C]|Rest], OldLineNumber) :- writeLine(A, B, C),
 
     % Add the line to your visited lines
     appendEl([A,B,C], TraversedLines, AllTraversed),
@@ -54,11 +61,14 @@ readLine(Prems, Goal, AllLines, TraversedLines, [[A,B,C]|Rest]) :- writeLine(A, 
     % Make sure the line is valid
     valid_line(Prems, Goal, AllLines, TraversedLines, A, B, C),
 
+    % Checks that all line numbers are valid
+    OldLineNumber is A - 1,
+
     % Read the nex line
-    readLine(Prems, Goal, AllLines, AllTraversed, Rest).
+    readLine(Prems, Goal, AllLines, AllTraversed, Rest, A).
 
 % start reading all lines, with an empty traversed lines list
-valid_proof(Prems, Goal, Line) :- readLine(Prems, Goal, Line, [], Line).
+valid_proof(Prems, Goal, Line) :- readLine(Prems, Goal, Line, [], Line, 0).
 
 % -----------------------------------------------------------------------------------------------------------------------------
 
