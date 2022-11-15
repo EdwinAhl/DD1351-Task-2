@@ -107,8 +107,7 @@ valid_line(_, _, AllLines, _, _, Result, negnegel(LineNumber)) :- valid_negnegel
 % negint
 valid_line(_, _, _, TraversedLines, _, neg(Result), negint(From,To)) :- valid_negint(TraversedLines, Result, From, To).
 
-% pbc
-% pbc is just like negint but with neg(Result)
+% pbc: is just like negint but with neg(Result)
 valid_line(_, _, _, TraversedLines, _, Result, pbc(From,To)) :- valid_negint(TraversedLines, neg(Result), From, To).
 
 % lem
