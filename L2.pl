@@ -117,4 +117,7 @@ valid_line(_, _, _, _, _, or(X, neg(X)), lem).
 % orel
 valid_line(_, _, _, TraversedLines, _, Result, orel(X, Y, U, V, W)) :- valid_orel(TraversedLines, Result, X, Y, U, V, W).
 
+% mt
+valid_line(_, _, _, TraversedLines, _, neg(Result), mt(FirstLine, SecondLine)) :- valid_mt(TraversedLines, Result, FirstLine, SecondLine).
+
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
