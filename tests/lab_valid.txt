@@ -1,18 +1,18 @@
-[imp(p,q)].
+[imp(p,q), or(neg(p),q)].
 
-and(neg(p),q).
+or(neg(p),q).
 
 [
   [1, imp(p,q),      premise],
-  [2, and(neg(p),q), lem],
+  [2, or(neg(p), p), lem],
   [
     [3, neg(p), assumption],
-    [4, and(neg(p),q), orint1(3)]
+    [4, or(neg(p),q), orint1(3)]
   ],
   [
     [5, p, assumption],
-    [6, q, impel(1,5)],
-    [7, and(neg(p),q), orint2(6)]
+    [6, q, impel(5,1)],
+    [7, or(neg(p),q), orint2(6)]
   ],
-  [8, and(neg(p),q), orel(2,3,4,5,7)]
+  [8, or(neg(p),q), orel(2,3,4,5,7)]
 ].

@@ -5,7 +5,6 @@ valid_orel(TraversedLines, Result, X, Y, U, V, W) :-
     % Check or
     member([X, or(A, B), _], TraversedLines),
 
-
     % Finds subsection 1 
 	member(AssumptionSubsection1, TraversedLines), 
 
@@ -14,7 +13,6 @@ valid_orel(TraversedLines, Result, X, Y, U, V, W) :-
 
     % Check result in section 1
     member([U, Result, _], AssumptionSubsection1),
-
 
     % Finds subsection 2 
 	member(AssumptionSubsection2, TraversedLines), 

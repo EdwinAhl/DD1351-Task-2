@@ -13,7 +13,7 @@ valid_proof(Prems, Goal, Proof).
 
 % READLINE -------------------------------------------------------------------------------------------------------------------
 
-% Arguments for readLine
+% Arguments for read_line
 % 0: List of premises
 % 1: The Goal
 % 2: All Lines
@@ -21,19 +21,28 @@ valid_proof(Prems, Goal, Proof).
 % 4: Current Line
 % 5: Current Line number
 
+% debug help
+write_line(A, B, C) :- true. % write(A), write(" "), write(B), write(" "), write(C), write("\n").
 
-writeLine(A, B, C) :- true. % write(A), write(" "), write(B), write(" "), write(C), write("\n").
+% start reading all lines, with an empty traversed lines list
+valid_proof(Prems, Goal, Line) :- 
+
+    % read the lines and validate them
+    read_line(Prems, Goal, Line, [], Line, 0),
+
+    % Make sure the goal is reached
+    last(Line, [_, Goal, _]).
 
 % return when theres no more lines
-readLine(_, _, _, _, [], _).
+read_line(_, _, _, _, [], _).
 
 % When a sublist is reached then it should always be an assumption
-readLine(Prems, Goal, AllLines, TraversedLines,
+read_line(Prems, Goal, AllLines, TraversedLines,
     [[[A, B, assumption]|Rest]|OuterRest], OldLineNumber) :-
-        
+
         % Print
-        writeLine(A, B, assumption),
-        
+        write_line(A, B, assumption),
+
         % Checks that all line numbers are valid
         OldLineNumber is A - 1,
 
@@ -41,7 +50,7 @@ readLine(Prems, Goal, AllLines, TraversedLines,
         appendEl([A,B,assumption], TraversedLines, InnerTraversed),
 
         % Continue reading from within the assumption
-        readLine(Prems, Goal, AllLines, InnerTraversed, Rest, A),
+        read_line(Prems, Goal, AllLines, InnerTraversed, Rest, A),
 
         % Append the whole assumption list to your TraversedLines
         appendEl([[A,B,assumption]|Rest], TraversedLines, OuterTraversed),
@@ -50,10 +59,10 @@ readLine(Prems, Goal, AllLines, TraversedLines,
         last([[A,B,assumption]|Rest], [LastLineNumber, _, _]),
 
         % Continue reading lines after the assumption
-        readLine(Prems, Goal, AllLines, OuterTraversed, OuterRest, LastLineNumber).
+        read_line(Prems, Goal, AllLines, OuterTraversed, OuterRest, LastLineNumber).
 
 % Base case for reading new lines, gets a basic line (not assumption) and does all checks on it.
-readLine(Prems, Goal, AllLines, TraversedLines, [[A,B,C]|Rest], OldLineNumber) :- writeLine(A, B, C),
+read_line(Prems, Goal, AllLines, TraversedLines, [[A,B,C]|Rest], OldLineNumber) :- write_line(A, B, C),
 
     % Add the line to your visited lines
     appendEl([A,B,C], TraversedLines, AllTraversed),
@@ -65,16 +74,7 @@ readLine(Prems, Goal, AllLines, TraversedLines, [[A,B,C]|Rest], OldLineNumber) :
     OldLineNumber is A - 1,
 
     % Read the nex line
-    readLine(Prems, Goal, AllLines, AllTraversed, Rest, A).
-
-% start reading all lines, with an empty traversed lines list
-valid_proof(Prems, Goal, Line) :- 
-
-    % read the lines and validate them
-    readLine(Prems, Goal, Line, [], Line, 0),
-
-    % Make sure the goal is reached
-    last(Line, [_, Goal, _]).
+    read_line(Prems, Goal, AllLines, AllTraversed, Rest, A).
 
 % -----------------------------------------------------------------------------------------------------------------------------
 
@@ -96,7 +96,7 @@ valid_proof(Prems, Goal, Line) :-
 % premise 
 valid_line(Prems, _, _, _, _, Premise, premise) :- valid_premise(Prems, Premise).
 
-% assumption, done in ReadLine
+% assumption, done in read_line
 
 % copy 
 valid_line(_, _, _, TraversedLines, _, Result, copy(LineNumber)) :- valid_copy(TraversedLines, Result, LineNumber).
@@ -148,5 +148,6 @@ valid_line(_, _, _, TraversedLines, _, Result, pbc(From,To)) :- valid_negint(Tra
 
 % lem
 valid_line(_, _, _, _, _, or(X, neg(X)), lem).
+valid_line(_, _, _, _, _, or(neg(X), X), lem).
 
 % -----------------------------------------------------------------------------------------------------------------------------------------------------
